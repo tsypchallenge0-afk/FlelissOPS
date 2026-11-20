@@ -1,0 +1,98 @@
+.public-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-void);
+    position: relative;
+    overflow-x: hidden;
+}
+
+.public-root::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: 40px 40px;
+    background-image:
+        linear-gradient(to right, rgba(38, 69, 89, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(38, 69, 89, 0.05) 1px, transparent 1px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.public-nav {
+    position: sticky;
+    top: 0;
+    height: 80px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-dim);
+    z-index: 100;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-btn {
+    padding: 8px 20px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    border: 1px solid var(--border-bright);
+    color: var(--text-primary);
+}
+
+.nav-btn:hover {
+    background: var(--bg-hover);
+}
+
+.nav-btn.primary {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--bg-void);
+}
+
+.nav-btn.primary:hover {
+    background: var(--accent-glow);
+    box-shadow: var(--glow-accent);
+}
+
+.public-main {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}

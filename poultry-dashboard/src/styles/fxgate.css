@@ -1,0 +1,282 @@
+/*
+ * FlelissOPS visual system, adapted from the FXGate workspace design
+ * (navy workspace, flat panels held by a 1px line, royal-blue actions, Urbanist, pill controls).
+ *
+ * Visual style only: the layout (sidebar, top bar, page structure) is the project's own.
+ * Loaded last (main.jsx). It re-points the app's existing variable names (--bg-panel, --accent, …) at the
+ * new palette, so every component that already reads a variable follows without being rewritten, and it
+ * restyles the shared classes (.panel, .btn, .data-table, .page-title, …). Selectors are one step more specific
+ * than index.css / global.css (`:root.dark` beats `.dark`), so this file wins regardless of import order.
+ */
+
+/* ── Light theme ──────────────────────────────────────────────────────── */
+:root:root {
+  color-scheme: light;
+
+  --brand-royal: #0b61e4;
+  --brand-teal: #1cb9c1;
+  --brand-navy: #031b42;
+
+  --bg-void: #eef1f7;          /* canvas */
+  --bg-base: #eef1f7;
+  --bg-panel: #ffffff;         /* card */
+  --bg-surface: #f3f6fc;       /* tile, table head, soft button */
+  --bg-elevated: #f3f6fc;
+  --bg-hover: #e9eef8;
+  --bg-input: #ffffff;
+
+  --border-dim: #e2e7f1;
+  --border-mid: #c9d1e3;
+  --border-bright: rgba(0, 0, 0, 0.5);
+
+  --text-primary: #031b42;
+  --text-secondary: #33435f;
+  --text-dim: #586680;
+  --text-accent: #0a52c0;
+  --text-mono: #031b42;
+
+  --accent: #0b61e4;           /* marks, rings, accent text */
+  --accent-primary: #0b61e4;
+  --accent-dim: #0a52c0;
+  --accent-glow: rgba(11, 97, 228, 0.10);
+  --action: #0b61e4;           /* fill behind white text */
+  --action-hover: #0a52c0;
+  --on-action: #ffffff;
+
+  --ok: #166c3b;
+  --warn: #834b08;
+  --danger: #a52a15;
+  --info: #0a52c0;
+  --ok-glow: rgba(26, 127, 69, 0.10);
+  --warn-glow: rgba(201, 128, 20, 0.14);
+  --danger-glow: rgba(194, 51, 26, 0.10);
+  --info-glow: rgba(11, 97, 228, 0.10);
+  --status-ok: var(--ok);
+  --status-warn: var(--warn);
+  --status-danger: var(--danger);
+  --status-offline: var(--text-dim);
+
+  --hero-from: #0b61e4;
+  --hero-to: #06409f;
+
+  --shadow-panel: none;
+  --shadow-float: 0 2px 4px rgba(20, 20, 22, 0.05), 0 18px 40px rgba(20, 20, 22, 0.12);
+  --glow-accent: none;
+  --glow-ok: none;
+  --glow-warn: none;
+  --glow-danger: none;
+
+  --font-body: "Urbanist Variable", Urbanist, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-body);
+  --font-mono: var(--font-body);   /* figures use tabular digits, not a monospace face */
+
+  --radius: 18px;
+  --radius-sm: 14px;
+  --radius-md: 12px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+  --header-height: 64px;
+  --sidebar-width: 248px;
+}
+
+/* ── Dark theme (default) ─────────────────────────────────────────────── */
+:root.dark {
+  color-scheme: dark;
+
+  --bg-void: #070c1a;
+  --bg-base: #070c1a;
+  --bg-panel: #0e1528;
+  --bg-surface: #131c36;
+  --bg-elevated: #131c36;
+  --bg-hover: #1a2544;
+  --bg-input: #0a1022;
+
+  --border-dim: #1c2540;
+  --border-mid: #2b3860;
+  --border-bright: rgba(255, 255, 255, 0.36);
+
+  --text-primary: #eef2ff;
+  --text-secondary: #c9d2ec;
+  --text-dim: #8e9abb;
+  --text-accent: #8fb1ff;
+  --text-mono: #eef2ff;
+
+  --accent: #5b8dff;
+  --accent-primary: #5b8dff;
+  --accent-dim: #8fb1ff;
+  --accent-glow: rgba(77, 132, 255, 0.17);
+  --action: #0b61e4;
+  --action-hover: #0a56ce;
+  --on-action: #ffffff;
+
+  --ok: #55c987;
+  --warn: #f2b24f;
+  --danger: #ff7f61;
+  --info: #6cb4ff;
+  --ok-glow: rgba(85, 201, 135, 0.12);
+  --warn-glow: rgba(242, 178, 79, 0.13);
+  --danger-glow: rgba(255, 127, 97, 0.12);
+  --info-glow: rgba(108, 180, 255, 0.13);
+
+  --shadow-float: 0 2px 6px rgba(0, 0, 0, 0.35), 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+html, body, #root { background: var(--bg-void); }
+body {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+::selection { background: var(--accent-glow); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 999px; }
+
+/*
+ * The previous "terminal" look set many labels in capitals with wide tracking, inline. FXGate is sentence case
+ * with normal tracking: soften those inline styles everywhere (status chips opt back in with .keep-caps).
+ */
+[style*="text-transform: uppercase"]:not(.keep-caps),
+[style*="text-transform:uppercase"]:not(.keep-caps) { text-transform: none !important; }
+[style*="letter-spacing: 0.1"], [style*="letter-spacing: 0.08"], [style*="letter-spacing: 0.12"],
+[style*="letter-spacing: 0.06"], [style*="letter-spacing: 0.05"] { letter-spacing: 0.01em !important; }
+
+/* ── Panels / cards ───────────────────────────────────────────────────── */
+.panel, .control-widget {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dim);
+  border-top: 1px solid var(--border-dim);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.panel-header-highlight, .corner-decor::before { display: none; }
+.panel-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-dim);
+  gap: 12px;
+}
+.panel-title, .section-label {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-primary);
+}
+.section-label-mono {
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-dim);
+}
+.panel-body { padding: 22px; }
+.mono, .mono-text { font-family: var(--font-body); font-variant-numeric: tabular-nums; }
+.dim { color: var(--text-dim); }
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 9px 16px;
+  min-height: 40px;
+  border-radius: var(--radius-control);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-dim);
+}
+.btn:hover:not(:disabled) { background: var(--bg-hover); }
+.btn-primary, .btn-primary:not(:disabled) {
+  background: var(--action);
+  border-color: var(--action);
+  color: var(--on-action);
+}
+.btn-primary:hover:not(:disabled) { background: var(--action-hover); border-color: var(--action-hover); }
+.btn-ghost { background: transparent; border-color: var(--border-mid); color: var(--text-primary); }
+.btn-ghost:hover:not(:disabled) { background: var(--bg-surface); border-color: var(--border-bright); }
+.btn-danger, .btn-danger:not(:disabled) { background: var(--danger-glow); border-color: transparent; color: var(--danger); }
+.btn-danger:hover:not(:disabled) { background: var(--danger); color: #fff; }
+
+/* ── Fields ───────────────────────────────────────────────────────────── */
+input, select, textarea {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border-mid);
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ── Status chips ─────────────────────────────────────────────────────── */
+.status-badge {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+}
+.status-badge.ok     { color: var(--ok);     background: var(--ok-glow); }
+.status-badge.warn   { color: var(--warn);   background: var(--warn-glow); }
+.status-badge.danger { color: var(--danger); background: var(--danger-glow); }
+.status-badge.info   { color: var(--info);   background: var(--info-glow); }
+.status-badge .dot { animation: none; }
+
+/* ── Tables ───────────────────────────────────────────────────────────── */
+.data-table { font-family: var(--font-body); font-size: 14px; border-collapse: separate; border-spacing: 0; }
+.data-table th {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-dim);
+  background: var(--bg-surface);
+  border-bottom: 0;
+  padding: 12px 14px;
+}
+.data-table th:first-child { border-radius: 12px 0 0 12px; }
+.data-table th:last-child { border-radius: 0 12px 12px 0; }
+.data-table td { padding: 14px; border-bottom: 1px solid var(--border-dim); }
+.data-table tbody tr:hover { background: transparent; }
+.data-table tbody tr:hover td { background: color-mix(in srgb, var(--bg-surface) 55%, transparent); }
+
+/* ── Pages ────────────────────────────────────────────────────────────── */
+.page-header { margin-bottom: 28px; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.page-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  line-height: 1.1;
+}
+.page-subtitle {
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: 0;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+.page-subtitle b, .page-subtitle strong { color: var(--text-primary); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+.status-badge { white-space: nowrap; flex-shrink: 0; }

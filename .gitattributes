@@ -1,0 +1,2 @@
+# PCB design and fabrication files are stored byte-exact (no line-ending conversion)
+hardware/pcb/** -text

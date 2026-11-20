@@ -1,0 +1,2 @@
+# Root scripts (sensor_simulator.py, test_*.py) use the backend's environment.
+-r back_end/requirements.txt

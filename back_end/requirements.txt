@@ -1,0 +1,35 @@
+# Verified together on Python 3.14 (Windows) — `python -m pytest` passes with these.
+# Older pins (numpy 1.26 / pandas 2.2 / scikit-learn 1.4 …) do not install on Python 3.13+.
+
+# API
+fastapi==0.136.0
+uvicorn[standard]==0.44.0
+pydantic[email]==2.13.3
+python-dotenv==1.2.2
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+bcrypt==5.0.0
+
+# Data / messaging
+pymongo==4.17.0
+paho-mqtt==2.1.0
+APScheduler==3.11.2
+tzlocal==5.3.1
+aiosmtplib==5.1.0
+jinja2==3.1.6
+
+# AI / forecasting
+prophet==1.1.5
+scikit-learn==1.9.1
+pandas==3.0.2
+numpy==2.4.4
+scipy==1.18.1
+joblib==1.4.2
+
+# Reports
+plotly==7.1.0
+reportlab==4.4.10
+
+# Simulators & edge client
+aiohttp==3.14.5
+requests==2.34.2

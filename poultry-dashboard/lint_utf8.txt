@@ -1,0 +1,24 @@
+
+> poultry-dashboard@0.0.0 lint
+> eslint .
+
+
+C:\robo_flelis_cursor\poultry-dashboard\src\components\RegistrationDrawer.jsx
+  219:21  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+  217 |   });
+  218 |
+> 219 |   const houseName = watch('name');
+      |                     ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  220 |
+  221 |   // Auto-generate house code from name
+  222 |   useEffect(() => {  react-hooks/incompatible-library
+  305:42  error    'watch' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       no-unused-vars
+  317:5   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+  418:7   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+
+Ô£û 4 problems (1 error, 3 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+

@@ -1,0 +1,166 @@
+.alerts-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+}
+
+/* 3-column Severity Tiles */
+.severity-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.severity-tile {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-dim);
+}
+
+.severity-tile:hover {
+    background: var(--bg-hover);
+}
+
+.severity-tile.active {
+    background: var(--bg-surface);
+}
+
+.severity-tile.danger.active {
+    border-color: var(--danger);
+    background: rgba(192, 40, 16, 0.04);
+}
+
+.severity-tile.warn.active {
+    border-color: var(--warn);
+    background: rgba(192, 112, 16, 0.04);
+}
+
+.severity-tile.info.active {
+    border-color: var(--info);
+    background: rgba(16, 112, 192, 0.04);
+}
+
+.severity-tile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.severity-tile-value {
+    font-size: 28px;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.severity-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid currentColor;
+    opacity: 0.8;
+}
+
+.severity-icon-box.danger {
+    color: var(--danger);
+    background: rgba(192, 40, 16, 0.05);
+}
+
+.severity-icon-box.warn {
+    color: var(--warn);
+    background: rgba(192, 112, 16, 0.05);
+}
+
+.severity-icon-box.info {
+    color: var(--info);
+    background: rgba(16, 112, 192, 0.05);
+}
+
+/* Filter Bar */
+/* (Re-using some from Devices.css, but adding specifics for metrics) */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    background: var(--bg-panel);
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-dim);
+    box-shadow: var(--shadow-panel);
+}
+
+.pill-btn.active.temp {
+    border-color: #e84040;
+    background: rgba(232, 64, 64, 0.05);
+    color: #e84040;
+}
+
+.pill-btn.active.hum {
+    border-color: #20a0e8;
+    background: rgba(32, 160, 232, 0.05);
+    color: #20a0e8;
+}
+
+.pill-btn.active.nh₃ {
+    border-color: #e8a020;
+    background: rgba(232, 160, 32, 0.05);
+    color: #e8a020;
+}
+
+/* Alert Table Specifics */
+.alert-table-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+}
+
+.alert-row-item {
+    cursor: pointer;
+}
+
+.alert-row-item td {
+    background: var(--bg-panel);
+}
+
+.alert-row-item:hover td {
+    background: var(--bg-hover);
+}
+
+.alert-row-item.selected td {
+    background: var(--bg-elevated);
+}
+
+.stacked-time {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.metric-badge {
+    display: inline-flex;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.msg-cell {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+
+.table-status-badge.info {
+    color: var(--info);
+    background: rgba(16, 112, 192, 0.08);
+}
